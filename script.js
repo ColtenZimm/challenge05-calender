@@ -52,3 +52,4 @@ function generateDates() {
   const table = document.createElement('table');
   const daysOfWeek = ['Sun']
 };
+
