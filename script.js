@@ -21,3 +21,34 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+const calendar = document.getElementById('calendar');
+const eventForm = document.getElementById('event-form');
+
+let events = JSON.parse(localStorage.getItem('events')) || {};
+
+function displayMonth() {
+  const now = new Date();
+  const month = now.toLocaleString('default', { month: 'long' });
+  const year = now.getFullYear();
+  const heading = document.createElement('h2');
+  heading.textContent = `${month} ${year}`;
+  calendar.appendChild(heading);
+}
+
+function generateDates() {
+  const now = new Date();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+  const dates = [];
+  for (let i = 1; i <= daysInMonth; i++) {
+    dates.push(i);
+  }
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    dates.unshift('');
+  }
+  while (dates.length % 7 !== 0) {
+    dates.push('');
+  }
+  const table = document.createElement('table');
+  const daysOfWeek = ['Sun']
+};
