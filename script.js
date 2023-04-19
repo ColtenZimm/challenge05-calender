@@ -53,3 +53,13 @@ function generateDates() {
   const daysOfWeek = ['Sun']
 };
 
+const currentDayHeading = document.getElementById('current-day');
+
+function displayCurrentDay() {
+  const now = new Date();
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const currentDay = now.toLocaleDateString('en-US', options);
+  currentDayHeading.textContent = currentDay;
+}
+
+displayCurrentDay();
