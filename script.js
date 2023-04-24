@@ -21,3 +21,104 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+const currentDayHeading = document.getElementById('current-day');
+const timeBlocksContainer = document.getElementById('time-blocks-container');
+const businessHoursStart = 9; // 9am
+const businessHoursEnd = 17; // 5pm
+
+function displayCurrentDay() {
+  const now = new Date();
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const currentDay = now.toLocaleDateString('en-US', options);
+  currentDayHeading.textContent = currentDay;
+}
+
+function createHourBlock(hour) {
+  const hourBlock = document.createElement('div');
+  hourBlock.classList.add('hour-block');
+  hourBlock.textContent = `${hour}:00`;
+  return hourBlock;
+}
+
+function displayTimeBlocks() {
+  for (let hour = businessHoursStart; hour <= businessHoursEnd; hour++) {
+    const hourBlock = createHourBlock(hour);
+    timeBlocksContainer.appendChild(hourBlock);
+  }
+}
+
+displayCurrentDay();
+displayTimeBlocks();
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 100) {
+    // Add more time blocks if user has scrolled down
+    for (let hour = businessHoursEnd + 1; hour <= businessHoursEnd + 3; hour++) {
+      const hourBlock = createHourBlock(hour);
+      timeBlocksContainer.appendChild(hourBlock);
+    }
+  }
+});
+
+
+
+const currentDayHeading = document.getElementById('current-day');
+const timeBlocksContainer = document.getElementById('time-blocks-container');
+const businessHoursStart = 9; // 9am
+const businessHoursEnd = 17; // 5pm
+
+function displayCurrentDay() {
+  const now = new Date();
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const currentDay = now.toLocaleDateString('en-US', options);
+  currentDayHeading.textContent = currentDay;
+  }
+
+function createHourBlock(hour) {
+  const hourBlock = document.createElement('div');
+  hourBlock.classList.add('hour-block');
+  hourBlock.textContent = `${hour}:00`;
+
+  const eventInput = document.createElement('input');
+  eventInput.type = 'text';
+  eventInput.classList.add('event-input');
+
+  const saveButton = document.createElement('button');
+  saveButton.textContent = 'Save';
+  saveButton.classList.add('save-button');
+  saveButton.addEventListener('click', function() {
+    const eventText = eventInput.value;
+    localStorage.setItem(`event-${hour}`, eventText);
+  });
+
+  const savedEventText = localStorage.getItem(`event-${hour}`);
+  if (savedEventText) {
+    eventInput.value = savedEventText;
+  }
+
+  hourBlock.appendChild(eventInput);
+  hourBlock.appendChild(saveButton);
+
+  return hourBlock;
+}
+
+function displayTimeBlocks() {
+  for (let hour = businessHoursStart; hour <= businessHoursEnd; hour++) {
+    const hourBlock = createHourBlock(hour);
+    timeBlocksContainer.appendChild(hourBlock);
+  }
+}
+
+displayCurrentDay();
+displayTimeBlocks();
+
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 100) {
+    // Add more time blocks if user has scrolled down
+    for (let hour = businessHoursEnd + 1; hour <= businessHoursEnd + 3; hour++) {
+      const hourBlock = createHourBlock(hour);
+      timeBlocksContainer.appendChild(hourBlock);
+    }
+  }
+});
